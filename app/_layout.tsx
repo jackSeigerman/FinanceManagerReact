@@ -17,6 +17,7 @@ export default function RootLayout() {
   useEffect(() => {
     async function checkForUpdates() {
       const status = await checkTagStatus();
+
       if (status === 1) {
         setErrorMessage('A new version of Finance Manager is available.');
         console.log(status);
@@ -27,6 +28,7 @@ export default function RootLayout() {
     }
 
     checkForUpdates();
+
   }, []);
 
   if (!loaded) {

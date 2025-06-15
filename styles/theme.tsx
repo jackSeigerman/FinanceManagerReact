@@ -49,6 +49,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
+    document.cookie = `dark=${!isDarkMode}; path=/; max-age=34560000;`; // TODO: less than two years cookie duration. uh oh
   };
 
   return (
