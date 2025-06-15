@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// Define theme colors
 export const colors = {
   light: {
     primary: '#007AFF',
@@ -30,19 +29,15 @@ export const colors = {
   },
 };
 
-// Define the context type
 interface ThemeContextType {
-  colors: any;
   theme: typeof colors.light;
   isDarkMode: boolean;
   toggleTheme: () => void;
 }
 
-// Create the context
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// ThemeProvider component
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   
   const theme = isDarkMode ? colors.dark : colors.light;
@@ -52,16 +47,15 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   return (
-    <ThemeContext.Provider value={{ colors, theme, isDarkMode, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, isDarkMode, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 };
 
-// useTheme hook
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;

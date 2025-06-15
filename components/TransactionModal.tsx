@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../styles/theme';
-import { Transaction } from '@/utils/Transaction';
+import { Transaction } from '../utils/Transaction';
 
 interface TransactionModalProps {
   visible: boolean;
@@ -43,7 +43,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
       <View style={[styles.overlay, { backgroundColor: theme.overlay }]}>        
-        <View style={[styles.container, { backgroundColor: theme.cardBackground }]}>          
+        <View style={[styles.container, { backgroundColor: theme.cardBackground }]}>                 
           <View style={[styles.header, { borderBottomColor: theme.border }]}>            
             <Text style={[styles.title, { color: theme.text }]}>              
               {currentTransaction.id ? 'Edit Transaction' : 'Add Transaction'}
@@ -55,13 +55,14 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 
           <ScrollView style={styles.form}>
             <Text style={[styles.label, { color: theme.text }]}>Description</Text>
-            <TextInput
-              style={[styles.input, { backgroundColor: theme.inputBackground, color: theme.text, borderColor: theme.border }]}
-              value={currentTransaction.description}
-              onChangeText={text => setCurrentTransaction({ ...currentTransaction, description: text })}
-              placeholder="Enter description"
-              placeholderTextColor={theme.textTertiary}
-            />
+           <TextInput
+            style={[styles.input, { backgroundColor: theme.inputBackground, color: theme.text, borderColor: theme.border }]}
+            value={currentTransaction.amount.toString()}
+            onChangeText={text => setCurrentTransaction({ ...currentTransaction, amount: parseFloat(text) || 0 })}
+            placeholder="0.00"
+            placeholderTextColor={theme.textTertiary}
+            keyboardType="numeric"
+          />
 
             <Text style={[styles.label, { color: theme.text }]}>Amount</Text>
             <TextInput

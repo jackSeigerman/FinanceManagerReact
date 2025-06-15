@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useTheme } from '../styles/theme';
-import { Transaction } from '@/utils/Transaction';
+import { Transaction } from '../utils/Transaction';
 
 export const useTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -8,7 +7,6 @@ export const useTransactions = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [budgetModalVisible, setBudgetModalVisible] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const [currentTransaction, setCurrentTransaction] = useState<Transaction>({
     id: 0,
@@ -71,8 +69,6 @@ export const useTransactions = () => {
     setTransactions(prev => prev.filter(t => t.id !== id));
   };
 
-  const theme = isDarkMode ? useTheme().colors.dark : useTheme().colors.light;
-
   return {
     transactions,
     setTransactions,
@@ -84,14 +80,11 @@ export const useTransactions = () => {
     setBudgetModalVisible,
     settingsModalVisible,
     setSettingsModalVisible,
-    isDarkMode,
-    setIsDarkMode,
     currentTransaction,
     setCurrentTransaction,
     addOrUpdateTransaction,
     editTransaction,
     deleteTransaction,
     resetForm,
-    theme,
   };
 };
